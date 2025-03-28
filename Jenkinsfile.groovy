@@ -1,28 +1,33 @@
 pipeline {
-    agent any  // Exécute sur n'importe quel agent disponible
-    
+    agent any  // Exécuter sur n'importe quel agent disponible
+
+    environment {
+        DOCKER_IMAGE = 'tonutilisateur/monimage:latest'  // Change ceci avec ton image
+        DOCKER_CREDENTIALS = 'docker-hub-credentials-id' 
+    }
+
     stages {
         stage('Checkout') {
             steps {
-                git branch: 'main', url: 'https://github.com/HoudaTaleb/Slides_animals'
+                git 'https://github.com/HoudaTaleb/Slides_animals'  // Change l'URL avec ton dépôt
             }
         }
         
-        stage('Build') {
+        stage('Build Docker Image') {
             steps {
-                echo 'Aucune compilation nécessaire pour HTML/CSS/JS'
+                script {
+                    docker.build(DOCKER_IMAGE)
+                }
             }
         }
-        
-        stage('Test') {
+
+        stage('Push Docker Image') {
             steps {
-                echo 'Ici, on peut ajouter des tests automatisés si nécessaire'
-            }
-        }
-        
-        stage('Deploy') {
-            steps {
-                echo 'Déploiement terminé !'
+                script {
+                    docker.withRegistry('https://index.docker.io/v1/', DOCKER_CREDENTIALS) {
+                        docker.image(DOCKER_IMAGE).push()
+                    }
+                }
             }
         }
     }
