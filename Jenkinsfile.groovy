@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git 'https://github.com/HoudaTaleb/Slides_animals'
+                git branch: 'main', url: 'https://github.com/HoudaTaleb/Slides_animals'
             }
         }
         
