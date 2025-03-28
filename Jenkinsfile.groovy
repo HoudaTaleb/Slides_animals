@@ -2,7 +2,7 @@ pipeline {
     agent any  // Exécuter sur n'importe quel agent disponible
 
     environment {
-        DOCKER_IMAGE = 'tonutilisateur/monimage:latest'  // Change ceci avec ton image
+        DOCKER_IMAGE = 'Nour/slides_animals_image:latest'  // Change ceci avec ton image
         DOCKER_CREDENTIALS = 'docker-hub-credentials-id' 
     }
 
