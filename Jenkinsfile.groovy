@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git 'https://github.com/TON-UTILISATEUR/TON-REPO.git'
+                git 'https://github.com/HoudaTaleb/Slides_animals'
             }
         }
         
